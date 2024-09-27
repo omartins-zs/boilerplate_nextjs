@@ -1,0 +1,3 @@
+npx create-next-app@latest boilerplate_nextjs
+
+npm install next-auth@beta
