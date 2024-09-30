@@ -1,9 +1,7 @@
-import SignIn from "@/components/sign-in";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-      <SignIn />
-    </main>
-  );
+   // Redireciona para a página de login
+  redirect("/login");
+  return null;
 }
