@@ -97,9 +97,13 @@ export default function LoginForm() {
         </div>
       </div>
 
-      <div className="text-center text-sm">
+      <div className="text-center text-sm space-y-2">
         <a className="underline" href="#">
           Forgot password?
+        </a>
+        <br />
+        <a className="underline" href="/register">
+          Don’t have an account? Sign up
         </a>
       </div>
     </div>
