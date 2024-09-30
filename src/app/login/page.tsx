@@ -44,15 +44,12 @@ export default function LoginForm() {
         {/* Botões para login com provedores */}
         <div className="grid grid-cols-3 gap-2">
           <Button variant="outline" onClick={() => signIn("google")}>
-            {/* <Icons.google className="mr-2 h-4 w-4" /> */}
             Google
           </Button>
           <Button variant="outline" onClick={() => signIn("discord")}>
-            {/* <Icons.discord className="mr-2 h-4 w-4" /> */}
             Discord
           </Button>
           <Button variant="outline" onClick={() => signIn("github")}>
-            {/* <Icons.gitHub className="mr-2 h-4 w-4" /> */}
             GitHub
           </Button>
         </div>
