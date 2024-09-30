@@ -4,3 +4,6 @@ npm install next-auth@beta
 
 
 npx auth secret
+
+npx shadcn@latest init
+npx shadcn@latest add
