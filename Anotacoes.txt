@@ -7,3 +7,6 @@ npx auth secret
 
 npx shadcn@latest init
 npx shadcn@latest add
+
+npm install @prisma/client @auth/prisma-adapter
+npm install prisma --save-dev
