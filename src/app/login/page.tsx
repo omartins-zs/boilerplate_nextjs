@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FaDiscord, FaGithub, FaGoogle } from "react-icons/fa";
 
 export default function LoginForm() {
   return (
@@ -43,14 +44,14 @@ export default function LoginForm() {
 
         {/* Botões para login com provedores */}
         <div className="grid grid-cols-3 gap-2">
-          <Button variant="outline" onClick={() => signIn("google")}>
-            Google
+          <Button className="bg-blue-500 text-white hover:bg-blue-500" variant="outline" onClick={() => signIn("google")}>
+            <FaGoogle />
           </Button>
-          <Button variant="outline" onClick={() => signIn("discord")}>
-            Discord
+          <Button className="bg-blue-400 text-white hover:bg-blue-700" variant="outline" onClick={() => signIn("discord")}>
+            <FaDiscord />
           </Button>
-          <Button variant="outline" onClick={() => signIn("github")}>
-            GitHub
+          <Button className="bg-gray-900 text-white hover:bg-gray-800" variant="outline" onClick={() => signIn("github")}>
+            <FaGithub />
           </Button>
         </div>
       </div>
