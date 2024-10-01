@@ -5,10 +5,12 @@ import Discord from "next-auth/providers/discord"
 import Credentials from "next-auth/providers/credentials"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "@/lib/prisma";
+import * as bcrypt from 'bcrypt-ts'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     adapter: PrismaAdapter(prisma),
     session: { strategy: "jwt" },
+    debug: true,
     providers: [
         Google,
         GitHub,
@@ -19,24 +21,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 password: {},
             },
             authorize: async (credentials) => {
-                const user = await prisma.user.findFirst({
-                    where: {
-                        email: credentials.email as string
+                try {
+                    if (!credentials?.email || typeof credentials.email !== 'string' ||
+                        !credentials?.password || typeof credentials.password !== 'string') {
+                        console.log("Credenciais inválidas");
+                        return null;
                     }
-                })
-                console.log("Usuario ", user)
-                if (user) {
+
+                    const user = await prisma.user.findUnique({
+                        where: { email: credentials.email },
+                    });
+
+                    if (!user || !user.password) {
+                        console.log("Usuário não encontrado");
+                        return null;
+                    }
+                    const isPasswordValid = await bcrypt.compare(
+                        credentials.password,
+                        user.password
+                    );
+
+                    if (!isPasswordValid) {
+                        console.log("Senha inválida");
+                        return null;
+                    }
+
                     return user;
+                } catch (error) {
+                    console.error("Erro ao autorizar:", error);
+                    return null;
                 }
-                return null;
-                // if (credentials.email === "gabriel@email.com" && credentials.password === "123") {
-                //     return {
-                //         id: "1",
-                //         name: "Gabriel Matheus",
-                //         email: "gabriel@email.com",
-                //     };
-                // }
-                // return null;
             },
         }),
     ],
@@ -45,7 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return baseUrl + "/admin";
         },
         async jwt({ token }) {
-            return token
+            return token;
         },
         async session({ session }) {
             return session;
