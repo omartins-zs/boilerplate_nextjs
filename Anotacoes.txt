@@ -12,3 +12,13 @@ npm install @prisma/client @auth/prisma-adapter
 npm install prisma --save-dev
 
 npm i react-icons
+
+npx prisma init --datasource-provider sqlite
+
+npm exec prisma migrate dev
+
+npm exec prisma generate
+
+npm exec prisma migrate dev
+
+npm i bcrypt-ts
