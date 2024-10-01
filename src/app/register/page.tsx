@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { registerUser } from "../actions/users";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -21,25 +22,17 @@ export default function SignUpForm() {
     setError("");
     setSuccess("");
 
-    const res = await fetch("actions/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
+    const res = await registerUser({
+      name,
+      email,
+      password,
     });
 
-    const data = await res.json();
-
-    if (res.ok) {
+    if (res.status === 201) {
       setSuccess("Usuário cadastrado com sucesso!");
       router.push("/login");
     } else {
-      setError(data.error || "Ocorreu um erro durante o cadastro.");
+      setError(res.error || "Ocorreu um erro durante o cadastro.");
     }
   };
 
